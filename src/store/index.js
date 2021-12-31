@@ -15,7 +15,7 @@ const cacheVue = cache({
     local: Object.keys(modules),
   }
 })
-// 查看sessionStorage
+// 查看sessionStorage  记得删除
 const sessionOldState = JSON.parse(sessionStorage.getItem('vuex'))
 console.log(sessionOldState);
 
