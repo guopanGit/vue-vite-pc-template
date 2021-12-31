@@ -3,13 +3,13 @@ const route = [
     path: '/404',
     name: "default",
     component: () => import('@/views/default/404.vue'),
-    hideMenu: true,
+    meta: {hideTabs: true}
   },
   {
     path: '/401',
     name: "default",
     component: () => import('@/views/default/4041.vue'),
-    hideMenu: true,
+    meta: {hideTabs: true}
   },
   {
     path: '/login',
@@ -22,7 +22,7 @@ const route = [
     // 找不到路由重定向到404页面
     path: "/:pathMatch(.*)",
     redirect: "/404",
-    hideMenu: true
+    meta: {hideTabs: true}
   },
 ]
 
