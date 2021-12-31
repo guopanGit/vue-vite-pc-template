@@ -12,7 +12,7 @@
         <div class="bullshit__info">
           请检查您输入的网址是否正确，或单击下面的按钮返回主页
         </div>
-        <el-button @click="go" type="primary" round>跳转首页</el-button>
+        <router-link :to="'/login'">跳转首页</router-link>
       </div>
     </div>
   </div>

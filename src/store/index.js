@@ -1,4 +1,5 @@
-import {createStore, createLogger} from 'vuex'
+import {createStore} from 'vuex'
+import cache from "./cache";
 
 const files = import.meta.globEager('./modules/*.js')
 
@@ -9,8 +10,18 @@ Object.keys(files).forEach((c) => {
   modules[moduleName] = module
 })
 
+const cacheVue = cache({
+  key: 'vuex', modules, modulesKeys: {
+    local: Object.keys(modules),
+  }
+})
+// 查看sessionStorage
+const sessionOldState = JSON.parse(sessionStorage.getItem('vuex'))
+console.log(sessionOldState);
+
 export default createStore({
   modules: {
     ...modules
-  }
+  },
+  plugins: [cacheVue]
 })
