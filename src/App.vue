@@ -1,6 +1,6 @@
 <template>
   <div class="app-box">
-    <div v-if="true" class="men-box">
+    <div v-if="!state.user.path.hideMenu" class="men-box">
       <div v-for="(menu,key) in allRoutes" :key="key">
         <div v-if="menu.showPath">
           <i class="iconfont">icon</i>
@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="center-box">
-      <div>头部</div>
+      <div v-if="!state.user.path.hideMenu">{{ state.user.path.title }}</div>
       <div>
         <router-view></router-view>
       </div>
@@ -20,13 +20,16 @@
 <script>
 import {defineComponent} from 'vue'
 import {useRouter} from 'vue-router'
+import {useStore} from 'vuex'
 
 export default defineComponent({
   name: "App",
   setup() {
     const allRoutes = useRouter().options.routes
+    const state = useStore().state
     return {
-      allRoutes
+      allRoutes,
+      state
     }
   }
 })
@@ -37,10 +40,6 @@ export default defineComponent({
 .app-box {
   height: 100vh;
   display: flex;
-
-  .men-box {
-
-  }
 
   .center-box {
     flex: 1;
