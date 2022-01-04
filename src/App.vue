@@ -2,7 +2,10 @@
   <div class="app-box">
     <div v-if="true" class="men-box">
       <div v-for="(menu,key) in allRoutes" :key="key">
-        <span v-if="menu.showPath">{{ menu.name }}</span>
+        <div v-if="menu.showPath">
+          <i class="iconfont">icon</i>
+          <span>{{ menu.meta.title }}</span>
+        </div>
       </div>
     </div>
     <div class="center-box">
@@ -22,7 +25,7 @@ export default defineComponent({
   name: "App",
   setup() {
     const allRoutes = useRouter().options.routes
-    return{
+    return {
       allRoutes
     }
   }
