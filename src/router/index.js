@@ -35,6 +35,7 @@ router.beforeEach((to, _from, next) => {
   NProgress.start();
   // 未登录跳转到登录页面 token未获取
   if ('token') {
+    store.dispatch('user/setPath',to.meta)
     next()
   } else {
     next('/login')

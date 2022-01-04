@@ -7,9 +7,9 @@ const route = [
   {
     path: '/home',
     name: "home",
-    hideMenu: true,
+    showPath: true,
     component: () => import('@/views/home/home.vue'),
-    meta: {title: '首页', hideTabs: true},
+    meta: {title: '首页', hideMenu: false,}
   }
 ]
 

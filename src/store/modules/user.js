@@ -1,8 +1,9 @@
-import { loginApi, getInfoApi, loginOutApi } from '@/api/user'
+import {loginApi, getInfoApi, loginOutApi} from '@/api/user'
 
 const state = () => ({
   token: '', // 登录token
   info: {},  // 用户信息
+  path: {}
 })
 
 // getters
@@ -19,19 +20,22 @@ const mutations = {
   },
   infoChange(state, info) {
     state.info = info
+  },
+  setPath(state, mate) {
+    state.path = mate
   }
 }
 
 // actions
 const actions = {
   // 登录
-  login({ commit, dispatch }, params) {
+  login({commit, dispatch}, params) {
     return new Promise((resolve, reject) => {
       loginApi(params)
         .then(res => {
           console.log(res);
           commit('tokenChange', res)
-          dispatch('getInfo', { token: res})
+          dispatch('getInfo', {token: res})
             .then(infoRes => {
               resolve(res)
             })
@@ -39,7 +43,7 @@ const actions = {
     })
   },
   // 获取用户信息
-  getInfo({ commit }, params) {
+  getInfo({commit}, params) {
     return new Promise((resolve, reject) => {
       getInfoApi(params)
         .then(res => {
@@ -50,7 +54,7 @@ const actions = {
   },
 
   // 退出登录
-  loginOut({ commit }) {
+  loginOut({commit}) {
     loginOutApi()
       .then(res => {
 
@@ -62,6 +66,11 @@ const actions = {
 
         location.reload()
       })
+  },
+
+  // 保存当前路由
+  setPath({commit}, params) {
+    commit('setPath', params)
   }
 }
 

@@ -1,12 +1,50 @@
 <template>
-  <router-view></router-view>
+  <div class="app-box">
+    <div v-if="true" class="men-box">
+      <div v-for="(menu,key) in allRoutes" :key="key">
+        <span v-if="menu.showPath">{{ menu.name }}</span>
+      </div>
+    </div>
+    <div class="center-box">
+      <div>头部</div>
+      <div>
+        <router-view></router-view>
+      </div>
+    </div>
+  </div>
 </template>
 
-<script setup>
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import HelloWorld from './components/HelloWorld.vue'
+<script>
+import {defineComponent} from 'vue'
+import {useRouter} from 'vue-router'
+
+export default defineComponent({
+  name: "App",
+  setup() {
+    const allRoutes = useRouter().options.routes
+    console.log(allRoutes);
+    return{
+      allRoutes
+    }
+  }
+})
 </script>
+
+
+<style lang="scss" scoped>
+.app-box {
+  height: 100vh;
+  display: flex;
+
+  .men-box {
+
+  }
+
+  .center-box {
+    flex: 1;
+  }
+}
+</style>
 
 <style>
 #app {
