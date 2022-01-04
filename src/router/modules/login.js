@@ -8,7 +8,7 @@ const route = [
   {
     path: '/401',
     name: "default",
-    component: () => import('@/views/default/4041.vue'),
+    component: () => import('@/views/default/401.vue'),
     meta: {hideTabs: true}
   },
   {

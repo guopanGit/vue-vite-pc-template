@@ -4,9 +4,11 @@ import NProgress from '@/utils/nprogress'
 
 // 引入modules
 import login from './modules/login'
+import home from './modules/home'
 
 let modules = [
-  ...login
+  ...login,
+  ...home
 ]
 
 const routes = modules
