@@ -22,7 +22,6 @@ export default defineComponent({
   name: "App",
   setup() {
     const allRoutes = useRouter().options.routes
-    console.log(allRoutes);
     return{
       allRoutes
     }
