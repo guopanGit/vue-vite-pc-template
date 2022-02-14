@@ -15,6 +15,7 @@ const service = axios.create({
 // 请求前的统一处理
 service.interceptors.request.use(
   (config) => {
+	NProgress.start();
     let Authorization = sessionStorage.getItem('token')
     if (Authorization) {
       config.headers.Authorization = Authorization
@@ -26,13 +27,15 @@ service.interceptors.request.use(
     return config
   },
   (error) => {
-    console.log(error) // for debug
-    return Promise.reject(error)
+   // console.log(error) // for debug
+   NProgress.done()
+   return Promise.reject(error)
   }
 )
 
 service.interceptors.response.use(
   (response) => {
+	NProgress.done()
     const res = response.data
     if (res.code === 200) {
       return res
@@ -41,7 +44,8 @@ service.interceptors.response.use(
     }
   },
   (error) => {
-    console.log(error) // for debug
-    return Promise.reject(error)
+   // console.log(error) // for debug
+   NProgress.done()
+   return Promise.reject(error)
   }
 )
