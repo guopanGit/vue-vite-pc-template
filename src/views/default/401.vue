@@ -9,7 +9,7 @@
         <div class="bullshit__info">
           您没有访问权限，如需权限，请联系上级授权！
         </div>
-        <el-button @click="go" type="primary" round>跳转首页</el-button>
+        <div class="goHome" @click="go">跳转首页</div>
       </div>
     </div>
   </div>
@@ -34,7 +34,10 @@ export default defineComponent({
 
 <style lang="scss" scoped>
   .wscn-http404-container {
-    
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .wscn-http404 {
     position: relative;
@@ -207,6 +210,13 @@ export default defineComponent({
         animation-duration: 0.5s;
         animation-delay: 0.3s;
         animation-fill-mode: forwards;
+      }
+      .goHome {
+        padding: 10px 15px;
+        border-radius: 10px;
+        background: #1482f0;
+        color: #fff;
+        text-decoration:none
       }
       @keyframes slideUp {
         0% {

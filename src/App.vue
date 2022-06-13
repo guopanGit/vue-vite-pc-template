@@ -1,58 +1,59 @@
 <template>
-  <div class="app-box">
-    <div v-if="!state.user.path.hideMenu" class="men-box">
-      <div v-for="(menu,key) in allRoutes" :key="key">
-        <div v-if="menu.showPath">
-          <i class="iconfont">icon</i>
-          <span>{{ menu.meta.title }}</span>
-        </div>
-      </div>
+  <AppProvider>
+    <div class="app-box">
+      <router-view />
     </div>
-    <div class="center-box">
-      <div v-if="!state.user.path.hideMenu">{{ state.user.path.title }}</div>
-      <div>
-        <router-view></router-view>
-      </div>
-    </div>
-  </div>
+  </AppProvider>
 </template>
 
-<script>
-import {defineComponent} from 'vue'
-import {useRouter} from 'vue-router'
-import {useStore} from 'vuex'
+<script setup>
+import { provide } from "vue";
+import { AppProvider } from "@/components/Application";
+import * as echarts from "echarts";
 
-export default defineComponent({
-  name: "App",
-  setup() {
-    const allRoutes = useRouter().options.routes
-    const state = useStore().state
-    return {
-      allRoutes,
-      state
-    }
-  }
-})
+provide("ec", echarts);
 </script>
 
-
-<style lang="scss" scoped>
-.app-box {
-  height: 100vh;
-  display: flex;
-
-  .center-box {
-    flex: 1;
-  }
-}
-</style>
-
 <style>
+.app-box, html, body {
+  height: 100%;
+  min-width: 1200px;
+}
+
+.user-none {
+  user-select: none;
+}
+
+.cursor {
+  cursor: pointer;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100%;
   text-align: center;
   color: #2c3e50;
+}
+
+::-webkit-scrollbar { /*滚动条整体样式*/
+  width: 4px; /*高宽分别对应横竖滚动条的尺寸*/
+  height: 4px;
+  scrollbar-arrow-color: red;
+  
+}
+
+::-webkit-scrollbar-thumb { /*滚动条里面小方块*/
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.2);
+  scrollbar-arrow-color: red;
+}
+
+::-webkit-scrollbar-track { /*滚动条里面轨道*/
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 0;
+  background: rgba(0, 0, 0, 0.1);
 }
 </style>

@@ -1,78 +1,76 @@
-import {loginApi, getInfoApi, loginOutApi} from '@/api/user'
+import {loginApi, getInfoApi, loginOutApi} from "@/api/user";
 
 const state = () => ({
-  token: '', // 登录token
-  info: {},  // 用户信息
+  menuSwitch: true,
+  token: "", // 登录token
+  info: {
+    name: ""
+  },  // 用户信息
   path: {}
-})
+});
 
 // getters
 const getters = {
   token(state) {
-    return state.token
+    return state.token;
   }
-}
+};
 
 // mutations
 const mutations = {
+  menuSwitch(state, params) {
+    state.menuSwitch = params;
+  },
   tokenChange(state, token) {
-    state.token = token
+    state.token = token;
   },
   infoChange(state, info) {
-    state.info = info
+    state.info = info;
   },
-  setPath(state, mate) {
-    state.path = mate
+  path(state, mate) {
+    state.path = mate;
   }
-}
+};
 
 // actions
 const actions = {
+  // 侧边导航开关
+  menuSwitch({commit, dispatch}, params) {
+    commit("menuSwitch", params);
+  },
+  // 侧边导航开关
+  darkness({commit, dispatch}, params) {
+    commit("darkness", params);
+  },
   // 登录
   login({commit, dispatch}, params) {
     return new Promise((resolve, reject) => {
       loginApi(params)
         .then(res => {
-          console.log(res);
-          commit('tokenChange', res)
-          dispatch('getInfo', {token: res})
-            .then(infoRes => {
-              resolve(res)
-            })
-        })
-    })
-  },
-  // 获取用户信息
-  getInfo({commit}, params) {
-    return new Promise((resolve, reject) => {
-      getInfoApi(params)
-        .then(res => {
-          commit('infoChange', res)
-          resolve(res)
-        })
-    })
+          commit("tokenChange", params.password);
+          commit("infoChange", {name: params.name});
+          setTimeout(() => {
+            resolve(res);
+          }, 2000);
+
+        });
+    });
   },
 
   // 退出登录
   loginOut({commit}) {
-    loginOutApi()
-      .then(res => {
-
-      })
-      .catch(error => {
-
-      })
-      .finally(() => {
-
-        location.reload()
-      })
+    commit("tokenChange", '');
+    commit("infoChange", {});
+    return new Promise((resolve) => {
+      resolve('ok')
+    })
   },
 
   // 保存当前路由
   setPath({commit}, params) {
-    commit('setPath', params)
+    commit("path", params);
   }
-}
+};
 
 export default {
   namespaced: true,
@@ -80,4 +78,4 @@ export default {
   actions,
   getters,
   mutations
-}
+};
